@@ -23,7 +23,7 @@ public class Run extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        changeScene(new MainMenu().getScene());
+        changeScene(new GamePage().getScene());
         stage.setFullScreen(true);
         stage.show();
     }

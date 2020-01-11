@@ -10,6 +10,5 @@ public abstract class DefaultScreen extends Group {
         return Run.relativeY(y);
     }
     public DefaultScreen() {
-
     }
 }
