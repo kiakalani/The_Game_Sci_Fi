@@ -1,5 +1,8 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -23,6 +26,7 @@ public class Run extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         changeScene(new GamePage().getScene());
         stage.setFullScreen(true);
         stage.show();

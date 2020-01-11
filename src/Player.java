@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.transform.Transform;
 
 public class Player extends ImageView {
     /**
@@ -15,8 +16,6 @@ public class Player extends ImageView {
      * The vertical speed for updating the position
      */
     private double horizontalSpeed;
-
-    private double mouseX = 0, mouseY = 0;
     private double angle = 0;
 
     /**
@@ -77,6 +76,7 @@ public class Player extends ImageView {
         if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.D) {
             horizontalSpeed = 0;
         }
+
     }
 
     public void setOnMoved(MouseEvent event) {
@@ -84,5 +84,12 @@ public class Player extends ImageView {
         if (getTranslateX() > event.getX()) {
             angle += 180;
         }
+    }
+    public void shoot(MouseEvent event) {
+        double initialx =  getTranslateX()+(getFitWidth()/2);
+        double initialy = getTranslateY()+(getFitHeight()/2);
+        //Sin is for y
+        // Cos is for x
+        //Travel to x, y by implementing the sin and cos of the angle
     }
 }
