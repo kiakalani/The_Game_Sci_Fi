@@ -23,6 +23,7 @@ public class Player extends ImageView {
     private double horizontalSpeed;
     private double angle = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
+    private ObservableList<Node> group;
     /**
      * Constantly updating the position of the player
      */
@@ -34,12 +35,14 @@ public class Player extends ImageView {
                 setTranslateY(getTranslateY() + verticalSpeed);
                 setRotate(angle);
                 updateBullets();
+                deleteBullets();
             }
         };
         a.start();
     }
 
-    public Player() {
+    public Player(ObservableList<Node> group) {
+        this.group = group;
         this.setImage(new Image("img/something.png"));
         this.setFitHeight(Run.relativeY(10));
         this.setFitWidth(Run.relativeX(10));
@@ -98,7 +101,8 @@ public class Player extends ImageView {
             //Sin is for y
             // Cos is for x
             //Travel to x, y by implementing the sin and cos of the angle
-            bullets.add(new Bullet());
+            bullets.add(new Bullet(angle));
+            bullets.get(bullets.size()-1).setRotate(angle);
             parent.add(bullets.get(bullets.size()-1));
             bullets.get(bullets.size() - 1).setTranslateX(initialx);
             bullets.get(bullets.size() - 1).setTranslateY(initialy);
@@ -109,10 +113,28 @@ public class Player extends ImageView {
     private void updateBullets() {
         if (bullets.size()!=0) {
             for (Bullet bullet:bullets) {
-//                bullet.setTranslateX(Math.cos(Math.toRadians(angle))*Run.relativeX(1)+bullet.getTranslateX());
-//                bullet.setTranslateY(-Math.sin(Math.toRadians(angle))*Run.relativeY(1)+bullet.getTranslateY());
-                bullet.setTranslateX(getTranslateX()+1);
-                bullet.setTranslateY(getTranslateY()+1);
+                bullet.setTranslateX(Math.cos(Math.toRadians(bullet.getAngle()))*Run.relativeX(5)+bullet.getTranslateX());
+                bullet.setTranslateY(Math.sin(Math.toRadians(bullet.getAngle()))*Run.relativeY(5)+bullet.getTranslateY());
+            }
+        }
+    }
+    private void deleteBullets() {
+        for (Bullet bullet:bullets) {
+            if (bullet.getTranslateX()>Run.relativeX(100)) {
+                group.remove(bullet);
+                bullets.remove(bullet);
+            }
+            if (bullet.getTranslateY()>Run.relativeY(100)) {
+                group.remove(bullet);
+                bullets.remove(bullet);
+            }
+            if (bullet.getTranslateX()<0) {
+                group.remove(bullet);
+                bullets.remove(bullet);
+            }
+            if (bullet.getTranslateY()<0) {
+                group.remove(bullet);
+                bullets.remove(bullet);
             }
         }
     }

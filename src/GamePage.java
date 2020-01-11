@@ -4,7 +4,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class GamePage extends DefaultScreen {
-    private final Player player=new Player();
+    private final Player player=new Player(getChildren());
     public GamePage() {
         this.getChildren().add(player);
         this.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -29,7 +29,6 @@ public class GamePage extends DefaultScreen {
             @Override
             public void handle(MouseEvent event) {
                 player.shoot(event,getChildren());
-
             }
         });
     }
