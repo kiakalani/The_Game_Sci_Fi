@@ -1,3 +1,4 @@
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
@@ -10,5 +11,6 @@ public abstract class DefaultScreen extends Group {
         return Run.relativeY(y);
     }
     public DefaultScreen() {
+        getScene().setCursor(Cursor.NONE);
     }
 }
