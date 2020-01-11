@@ -11,5 +11,11 @@ public class GamePage extends DefaultScreen {
                 player.setOnPressed(event);
             }
         });
+        this.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                player.setOnReleased(event);
+            }
+        });
     }
 }
