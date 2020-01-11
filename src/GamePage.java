@@ -1,5 +1,6 @@
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class GamePage extends DefaultScreen {
@@ -22,6 +23,12 @@ public class GamePage extends DefaultScreen {
             @Override
             public void handle(MouseEvent event) {
                 player.setOnMoved(event);
+            }
+        });
+        this.getScene().setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                player.shoot(event);
             }
         });
     }

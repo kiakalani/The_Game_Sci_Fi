@@ -4,8 +4,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Transform;
+
+import java.util.LinkedList;
 
 public class Player extends ImageView {
     /**
@@ -17,7 +20,7 @@ public class Player extends ImageView {
      */
     private double horizontalSpeed;
     private double angle = 0;
-
+    private LinkedList<Bullet> bullets = new LinkedList<>();
     /**
      * Constantly updating the position of the player
      */
@@ -28,6 +31,7 @@ public class Player extends ImageView {
                 setTranslateX(getTranslateX() + horizontalSpeed);
                 setTranslateY(getTranslateY() + verticalSpeed);
                 setRotate(angle);
+                updateBullets();
             }
         };
         a.start();
@@ -86,10 +90,33 @@ public class Player extends ImageView {
         }
     }
     public void shoot(MouseEvent event) {
-        double initialx =  getTranslateX()+(getFitWidth()/2);
-        double initialy = getTranslateY()+(getFitHeight()/2);
-        //Sin is for y
-        // Cos is for x
-        //Travel to x, y by implementing the sin and cos of the angle
+        if (event.getButton() == MouseButton.PRIMARY) {
+            double initialx = getTranslateX() + (getFitWidth() / 2);
+            double initialy = getTranslateY() + (getFitHeight() / 2);
+            //Sin is for y
+            // Cos is for x
+            //Travel to x, y by implementing the sin and cos of the angle
+            bullets.add(new Bullet());
+            bullets.get(bullets.size() - 1).setTranslateX(initialx);
+            bullets.get(bullets.size() - 1).setTranslateY(initialy);
+            System.out.println("Left");
+        }
+
+    }
+    private void updateBullets() {
+        if (bullets.size()!=0) {
+            for (Bullet bullet:bullets) {
+                bullet.setTranslateX(Math.cos(Math.toRadians(angle))*Run.relativeX(1)+bullet.getTranslateX());
+                bullet.setTranslateY(-Math.sin(Math.toRadians(angle))*Run.relativeY(1)+bullet.getTranslateY());
+            }
+        }
+    }
+
+    public LinkedList<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(LinkedList<Bullet> bullets) {
+        this.bullets = bullets;
     }
 }
