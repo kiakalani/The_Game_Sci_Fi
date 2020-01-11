@@ -1,5 +1,7 @@
 import javafx.animation.AnimationTimer;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -89,7 +91,7 @@ public class Player extends ImageView {
             angle += 180;
         }
     }
-    public void shoot(MouseEvent event) {
+    public void shoot(MouseEvent event, ObservableList<Node> parent) {
         if (event.getButton() == MouseButton.PRIMARY) {
             double initialx = getTranslateX() + (getFitWidth() / 2);
             double initialy = getTranslateY() + (getFitHeight() / 2);
@@ -97,6 +99,7 @@ public class Player extends ImageView {
             // Cos is for x
             //Travel to x, y by implementing the sin and cos of the angle
             bullets.add(new Bullet());
+            parent.add(bullets.get(bullets.size()-1));
             bullets.get(bullets.size() - 1).setTranslateX(initialx);
             bullets.get(bullets.size() - 1).setTranslateY(initialy);
             System.out.println("Left");
@@ -106,8 +109,10 @@ public class Player extends ImageView {
     private void updateBullets() {
         if (bullets.size()!=0) {
             for (Bullet bullet:bullets) {
-                bullet.setTranslateX(Math.cos(Math.toRadians(angle))*Run.relativeX(1)+bullet.getTranslateX());
-                bullet.setTranslateY(-Math.sin(Math.toRadians(angle))*Run.relativeY(1)+bullet.getTranslateY());
+//                bullet.setTranslateX(Math.cos(Math.toRadians(angle))*Run.relativeX(1)+bullet.getTranslateX());
+//                bullet.setTranslateY(-Math.sin(Math.toRadians(angle))*Run.relativeY(1)+bullet.getTranslateY());
+                bullet.setTranslateX(getTranslateX()+1);
+                bullet.setTranslateY(getTranslateY()+1);
             }
         }
     }

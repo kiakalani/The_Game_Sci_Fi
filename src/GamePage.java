@@ -28,7 +28,8 @@ public class GamePage extends DefaultScreen {
         this.getScene().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                player.shoot(event);
+                player.shoot(event,getChildren());
+
             }
         });
     }
