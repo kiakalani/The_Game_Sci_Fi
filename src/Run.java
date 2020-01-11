@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 /**
  * @author Kia
  * @version 1.00
@@ -9,10 +11,20 @@ import javafx.stage.Stage;
  */
 public class Run extends Application {
     private static Stage stage;
+    private static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+    public static double relativeX(double x){
+        return (x/100.0)*screen.getWidth();
+
+    }
+    public static double relativeY(double y) {
+        return (y/100.0)*screen.getHeight();
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        changeScene(new Scene(null));
+        changeScene(new MainMenu().getScene());
+        stage.setFullScreen(true);
         stage.show();
     }
 
