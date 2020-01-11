@@ -26,9 +26,9 @@ public class Run extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         changeScene(new GamePage().getScene());
         stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.show();
     }
 

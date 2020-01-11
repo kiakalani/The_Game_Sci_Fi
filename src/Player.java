@@ -36,9 +36,24 @@ public class Player extends ImageView {
                 setRotate(angle);
                 updateBullets();
                 deleteBullets();
+                checkBoundaries();
             }
         };
         a.start();
+    }
+    private void checkBoundaries() {
+        if (getTranslateX()<0) {
+            setTranslateX(0);
+        }
+        if (getTranslateX()+getFitWidth()>Run.relativeX(100)) {
+            setTranslateX(Run.relativeX(99.9)-getFitWidth());
+        }
+        if (getTranslateY()<0) {
+            setTranslateY(0);
+        }
+        if (getTranslateY()+getFitHeight()>Run.relativeY(100)) {
+            setTranslateY(Run.relativeY(99.9)-getFitHeight());
+        }
     }
 
     public Player(ObservableList<Node> group) {
