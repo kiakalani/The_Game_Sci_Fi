@@ -1,9 +1,11 @@
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -20,7 +22,23 @@ public class MainMenu extends DefaultScreen {
             buttons.get(i-1).setFitHeight(Run.relativeY(20));
             buttons.get(i-1).setTranslateY((Run.relativeY(25)*i));
             getChildren().add(buttons.get(i-1));
-
+            final int index = i-1;
+            buttons.get(i-1).setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (index == 2) {
+                        System.exit(0);
+                    } else{
+                        if (index == 0) {
+                            Run.changeScene(new GamePage().getScene());
+                        }
+                        if (index == 1) {
+                            // Run the credits
+                            System.out.println("Credits");
+                        }
+                    }
+                }
+            });
         }
         buttons.get(0).setFitWidth(Run.relativeX(80));
         buttons.get(0).setTranslateX(Run.relativeX(10));

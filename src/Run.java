@@ -38,6 +38,7 @@ public class Run extends Application {
      */
     public static void changeScene(Scene scene) {
         stage.setScene(scene);
+        stage.setFullScreen(true);
     }
 
     public static void main(String[] args) {

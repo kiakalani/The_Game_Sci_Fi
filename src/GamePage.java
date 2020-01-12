@@ -1,4 +1,5 @@
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +12,9 @@ public class GamePage extends DefaultScreen {
             @Override
             public void handle(KeyEvent event) {
                 player.setOnPressed(event);
+                if (event.getCode()== KeyCode.ESCAPE) {
+                    Run.changeScene(new MainMenu().getScene());
+                }
             }
         });
         this.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
