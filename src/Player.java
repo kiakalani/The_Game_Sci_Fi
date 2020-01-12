@@ -46,7 +46,7 @@ public class Player extends ImageView {
         }
     }
 
-    public Player(ObservableList<Node> group) {
+    public Player(ObservableList<Node> group,LinkedList<Zombie> zombies) {
 
         totalHP = 100;
         currentHP = totalHP;
@@ -54,16 +54,16 @@ public class Player extends ImageView {
         totalAmmo = 100;
 
         this.group = group;
-        this.setImage(new Image("img/something.png"));
-        this.setFitHeight(Run.relativeY(10));
-        this.setFitWidth(Run.relativeX(10));
-        update();
+        this.setImage(new Image("img/Character.jpg"));
+        this.setFitHeight(Run.relativeX(7));
+        this.setFitWidth(Run.relativeX(7));
+        update(zombies, this);
     }
 
     /**
      * Constantly updating the position of the player
      */
-    private void update() {
+    private void update(LinkedList<Zombie> zombies, Player player) {
         AnimationTimer a = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -73,6 +73,19 @@ public class Player extends ImageView {
                 updateBullets();
                 deleteBullets();
                 checkBoundaries();
+                for (Zombie zombie: zombies) {
+                    zombie.update(player);
+                }
+                for (Bullet bullet:bullets) {
+                    for (Zombie zombie:zombies) {
+                        zombie.loseLife(bullet);
+                        if (zombie.getCurrentHP()<0) {
+                            zombie.setImage(null);
+                            zombies.remove(zombie);
+                        }
+                    }
+
+                }
             }
         };
         a.start();
@@ -155,7 +168,6 @@ public class Player extends ImageView {
             parent.add(bullets.get(bullets.size()-1));
             bullets.get(bullets.size() - 1).setTranslateX(initialx);
             bullets.get(bullets.size() - 1).setTranslateY(initialy);
-            System.out.println("Left");
         }
 
     }
@@ -173,6 +185,10 @@ public class Player extends ImageView {
 
     private void deleteBullets() {
         for (Bullet bullet:bullets) {
+            if (bullet == null) {
+                bullets.remove(bullet);
+                group.remove(bullet);
+            }
             if (bullet.getTranslateX()>Run.relativeX(100)) {
                 group.remove(bullet);
                 bullets.remove(bullet);

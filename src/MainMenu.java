@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 public class MainMenu extends DefaultScreen {
     private LinkedList<ImageView> buttons = new LinkedList<>();
+
     private void setButtons() {
         for (int i=1;i<4;i++) {
             buttons.add(new ImageView(new Image("img/buttons/"+i+".png")));

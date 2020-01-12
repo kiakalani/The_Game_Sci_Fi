@@ -4,8 +4,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.util.LinkedList;
+
 public class GamePage extends DefaultScreen {
-    private final Player player=new Player(getChildren());
+    private final LinkedList<Zombie> vanyas = new LinkedList<>();
+    private final Player player=new Player(getChildren(),vanyas);
+
     public GamePage() {
         this.getChildren().add(player);
         this.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -35,5 +39,6 @@ public class GamePage extends DefaultScreen {
                 player.shoot(event,getChildren());
             }
         });
+        vanyas.add(new Zombie(getChildren()));
     }
 }
