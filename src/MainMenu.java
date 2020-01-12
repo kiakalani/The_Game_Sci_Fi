@@ -12,9 +12,24 @@ import javafx.scene.shape.Rectangle;
 import java.io.File;
 import java.util.LinkedList;
 
+/**
+ * @author Kia
+ * @version 1.00
+ * <code>MainMenu</code> class refers to the display of the main menu in the game.
+ */
 public class MainMenu extends DefaultScreen {
+    /**
+     * The buttons for showing 'exit', 'start game' or 'credits'
+     */
     private LinkedList<ImageView> buttons = new LinkedList<>();
+    /**
+     * The audio player
+     */
     public static Audio audio = new Audio("Audio/SMM.wav");
+
+    /**
+     * Setting the buttons properties
+     */
     private void setButtons() {
         for (int i=1;i<4;i++) {
             buttons.add(new ImageView(new Image("img/buttons/"+i+".png")));
@@ -54,6 +69,10 @@ public class MainMenu extends DefaultScreen {
         buttons.get(2).setTranslateY(buttons.get(1).getTranslateY());
         buttons.get(2).setFitWidth(Run.relativeX(38));
     }
+
+    /**
+     * The constructor
+     */
     public MainMenu() {
         audio.stop();
         audio = new Audio("Audio/SMM.wav");
@@ -61,6 +80,10 @@ public class MainMenu extends DefaultScreen {
         setBackground();
         setButtons();
     }
+
+    /**
+     * This method is responsible for setting the background.
+     */
     private void setBackground() {
         ImageView background = new ImageView(new Image("img/mainBackground.jpg"));
         background.setFitWidth(Run.relativeX(100));

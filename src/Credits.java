@@ -5,9 +5,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * @author Kia
+ * @version 1.00
+ * <code>Credits</code> class is responsible for showing
+ * the credits.
+ */
 public class Credits extends DefaultScreen {
+    /**
+     * The label showing the name of the contributors in this project
+     * as well as their roles.
+     */
     private Label label = new Label();
+    /**
+     * A cute surprise!
+     */
     private ImageView masha;
+
+    /**
+     * The constructor
+     */
     public Credits() {
         setBkg();
         masha = new ImageView(new Image("img/credits/Masha.jpg"));
@@ -38,6 +55,10 @@ public class Credits extends DefaultScreen {
         };
         a.start();
     }
+
+    /**
+     * This method is responsible for setting the background.
+     */
     private void setBkg() {
         ImageView view = new ImageView(new Image("img/mainBackground.jpg"));
         view.setFitWidth(relativeX(100));

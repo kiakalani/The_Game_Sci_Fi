@@ -7,10 +7,24 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.LinkedList;
 
+/**
+ * @author Kia
+ * @version 1.00
+ * <code>GamePage</code> includes all of the necessary contents inside the game itself.
+ */
 public class GamePage extends DefaultScreen {
-    private final LinkedList<Zombie> vanyas = new LinkedList<>();
-    private final Player player=new Player(getChildren(),vanyas);
+    /**
+     * A linkedlist that contains all of the zombies inside itself.
+     */
+    private final LinkedList<Zombie> zombies = new LinkedList<>();
+    /**
+     * The <code>Player</code> of the game.
+     */
+    private final Player player=new Player(getChildren(), zombies);
 
+    /**
+     * The constructor
+     */
     public GamePage() {
         MainMenu.audio = new Audio("Audio/SG111.wav");
         MainMenu.audio.playNormal();
@@ -44,9 +58,13 @@ public class GamePage extends DefaultScreen {
                 player.shoot(event,getChildren());
             }
         });
-        vanyas.add(new Zombie(getChildren()));
+        zombies.add(new Zombie(getChildren()));
 
     }
+
+    /**
+     * This method would set the background behind the players and the zombies.
+     */
     private void setBackground() {
         ImageView background = new ImageView(new Image("img/background.png"));
         background.setFitWidth(relativeX(100));

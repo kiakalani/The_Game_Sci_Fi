@@ -12,13 +12,30 @@ import java.awt.*;
  * <code>Run</code> class is responsible for running the project.
  */
 public class Run extends Application {
+    /**
+     * The actual stage of the game.
+     */
     private static Stage stage;
+    /**
+     * The dimensions of the screen of the player
+     */
     private static final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-
+    /**
+     * This method would return the position according to the percentage provided
+     * for the x axis
+     * @param x refers to the percentage of the x axis
+     * @return the actual position by considering the percentage provided
+     */
     public static double relativeX(double x){
         return (x/100.0)*screen.getWidth();
 
     }
+    /**
+     * This method would return the position according to the percentage provided
+     * for the y axis
+     * @param y refers to the percentage of the y axis
+     * @return the actual position by considering the percentage provided
+     */
     public static double relativeY(double y) {
         return (y/100.0)*screen.getHeight();
     }
