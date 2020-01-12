@@ -1,3 +1,7 @@
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
@@ -5,8 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * @author Kia
@@ -61,6 +67,15 @@ public class GamePage extends DefaultScreen {
             }
         });
         zombies.add(new Zombie(getChildren()));
+        Timeline addZombie = new Timeline();
+        addZombie.setCycleCount(Animation.INDEFINITE);
+        addZombie.getKeyFrames().add(new KeyFrame(Duration.seconds(new Random().nextInt(3) + 1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                zombies.add(new Zombie(getChildren()));
+            }
+        }));
+        addZombie.playFromStart();
         player.addLabels(getChildren());
     }
 

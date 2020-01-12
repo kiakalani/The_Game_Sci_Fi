@@ -10,6 +10,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Player extends ImageView {
@@ -217,27 +219,33 @@ public class Player extends ImageView {
 
 
     private void deleteBullets() {
-        for (Bullet bullet:bullets) {
-            if (bullet == null) {
-                bullets.remove(bullet);
-                group.remove(bullet);
+        Iterator<Bullet> b=bullets.iterator();
+        try {
+            while (b.hasNext()) {
+                Bullet bullet = b.next();
+                if (bullet == null) {
+                    bullets.remove(bullet);
+                    group.remove(bullet);
+                }
+                if (bullet.getTranslateX() > Run.relativeX(100)) {
+                    group.remove(bullet);
+                    bullets.remove(bullet);
+                }
+                if (bullet.getTranslateY() > Run.relativeY(100)) {
+                    group.remove(bullet);
+                    bullets.remove(bullet);
+                }
+                if (bullet.getTranslateX() < 0) {
+                    group.remove(bullet);
+                    bullets.remove(bullet);
+                }
+                if (bullet.getTranslateY() < 0) {
+                    group.remove(bullet);
+                    bullets.remove(bullet);
+                }
             }
-            if (bullet.getTranslateX()>Run.relativeX(100)) {
-                group.remove(bullet);
-                bullets.remove(bullet);
-            }
-            if (bullet.getTranslateY()>Run.relativeY(100)) {
-                group.remove(bullet);
-                bullets.remove(bullet);
-            }
-            if (bullet.getTranslateX()<0) {
-                group.remove(bullet);
-                bullets.remove(bullet);
-            }
-            if (bullet.getTranslateY()<0) {
-                group.remove(bullet);
-                bullets.remove(bullet);
-            }
+        }catch (ConcurrentModificationException err) {
+
         }
     }
 
