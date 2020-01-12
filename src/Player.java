@@ -22,6 +22,44 @@ public class Player extends ImageView {
     private double angle = 0;
     private LinkedList<Bullet> bullets = new LinkedList<>();
     private ObservableList<Node> group;
+
+    /**
+     * Gameplay
+     */
+    private double totalHP;
+    private double currentHP;
+    private double currentMagazineAmmo;
+    private double totalAmmo;
+
+    private void checkBoundaries() {
+        if (getTranslateX()<0) {
+            setTranslateX(0);
+        }
+        if (getTranslateX()+getFitWidth()>Run.relativeX(100)) {
+            setTranslateX(Run.relativeX(99.9)-getFitWidth());
+        }
+        if (getTranslateY()<0) {
+            setTranslateY(0);
+        }
+        if (getTranslateY()+getFitHeight()>Run.relativeY(100)) {
+            setTranslateY(Run.relativeY(99.9)-getFitHeight());
+        }
+    }
+
+    public Player(ObservableList<Node> group) {
+
+        totalHP = 100;
+        currentHP = totalHP;
+        currentMagazineAmmo = 20;
+        totalAmmo = 100;
+
+        this.group = group;
+        this.setImage(new Image("img/something.png"));
+        this.setFitHeight(Run.relativeY(10));
+        this.setFitWidth(Run.relativeX(10));
+        update();
+    }
+
     /**
      * Constantly updating the position of the player
      */
@@ -34,18 +72,13 @@ public class Player extends ImageView {
                 setRotate(angle);
                 updateBullets();
                 deleteBullets();
+                checkBoundaries();
             }
         };
         a.start();
     }
 
-    public Player(ObservableList<Node> group) {
-        this.group = group;
-        this.setImage(new Image("img/something.png"));
-        this.setFitHeight(Run.relativeY(10));
-        this.setFitWidth(Run.relativeX(10));
-        update();
-    }
+
 
     /**
      * Setting the speed of the player movements according to the keys pressed
@@ -66,9 +99,21 @@ public class Player extends ImageView {
             case D:
                 horizontalSpeed = Run.relativeX(0.7);
                 break;
+            case R:
+                reload();
 
         }
 
+    }
+
+    private void reload(){
+        if (totalAmmo > 0 && totalAmmo < 20){
+            currentMagazineAmmo = totalAmmo;
+            totalAmmo = 0;
+        } else if (totalAmmo > 0){
+            currentMagazineAmmo = 20;
+            totalAmmo -= 20;
+        }
     }
 
     /**
@@ -93,6 +138,11 @@ public class Player extends ImageView {
 //        }
     }
     public void shoot(MouseEvent event, ObservableList<Node> parent) {
+
+        if (currentMagazineAmmo  == 0){
+            reload();
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             new Audio("Audio/bullet.wav").playNormal();
             double initialx = getTranslateX() + (getFitWidth() / 2);
@@ -148,5 +198,13 @@ public class Player extends ImageView {
 
     public void setBullets(LinkedList<Bullet> bullets) {
         this.bullets = bullets;
+    }
+
+    public void setCurrentHP(double currentHP) {
+        this.currentHP = currentHP;
+    }
+
+    public double getCurrentHP() {
+        return currentHP;
     }
 }
