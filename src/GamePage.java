@@ -49,5 +49,6 @@ public class GamePage extends DefaultScreen {
         background.setFitWidth(relativeX(100));
         background.setFitHeight(relativeY(100));
         getChildren().add(background);
+        //
     }
 }
