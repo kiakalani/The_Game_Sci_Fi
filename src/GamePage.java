@@ -1,4 +1,5 @@
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -26,6 +27,7 @@ public class GamePage extends DefaultScreen {
      * The constructor
      */
     public GamePage() {
+        setCursor(Cursor.NONE);
         MainMenu.audio = new Audio("Audio/SG111.wav");
         MainMenu.audio.playNormal();
         setBackground();
@@ -59,7 +61,7 @@ public class GamePage extends DefaultScreen {
             }
         });
         zombies.add(new Zombie(getChildren()));
-
+        player.addLabels(getChildren());
     }
 
     /**

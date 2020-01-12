@@ -1,12 +1,14 @@
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 
 import java.util.LinkedList;
 
@@ -30,6 +32,27 @@ public class Player extends ImageView {
     private double currentHP;
     private double currentMagazineAmmo;
     private double totalAmmo;
+    private Label hp, ammo;
+    private void setLabels() {
+        hp = new Label("HP: "+currentHP+"");
+        hp.setFont(new Font(20));
+        ammo = new Label("||"+currentMagazineAmmo+"");
+        ammo.setFont(new Font(20));
+        hp.setTranslateY(Run.relativeY(90));
+        ammo.setTranslateY(Run.relativeY(90));
+        ammo.setTranslateX(Run.relativeX(95));
+
+    }
+
+    public void addLabels(ObservableList<Node> observableList) {
+        observableList.add(hp);
+        observableList.add(ammo);
+    }
+
+    private void updateLabels() {
+        hp.setText("HP: "+currentHP+"");
+        ammo.setText("||"+currentMagazineAmmo+"");
+    }
     private AnimationTimer a;
 
     private void checkBoundaries() {
@@ -59,6 +82,7 @@ public class Player extends ImageView {
         this.setFitHeight(Run.relativeX(7));
         this.setFitWidth(Run.relativeX(7));
         update(zombies, this);
+        setLabels();
     }
 
     /**
@@ -94,6 +118,7 @@ public class Player extends ImageView {
                     MainMenu.audio = new Audio("Audio/SG222.wav");
                     MainMenu.audio.play();
                 }
+                updateLabels();
             }
         };
         a.start();

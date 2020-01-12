@@ -1,10 +1,12 @@
-import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -19,7 +21,6 @@ public class Zombie extends ImageView {
     private boolean alive;
 
     public Zombie(ObservableList<Node> children) {
-
         maxHP = 100;
         currentHP = maxHP;
         //generates a random position for zombie when it spawns
@@ -30,7 +31,7 @@ public class Zombie extends ImageView {
         alive = true;
         setFitHeight(Run.relativeY(10));
         setFitWidth(Run.relativeX(10));
-        this.setImage(new Image("img/something.png"));
+        this.setImage(new Image("img/zombie.png"));
         children.add(this);
 
     }
@@ -56,8 +57,7 @@ public class Zombie extends ImageView {
     public boolean loseLife(Bullet bullet) {
         if (bullet.getBoundsInParent().intersects(this.getBoundsInParent())) {
             currentHP-=40;
-            System.out.println(currentHP);
-            new Audio("C:\\Users\\Kia\\IdeaProjects\\TombOfOsiris\\Audio\\death.wav").playNormal();
+            new Audio("Audio/zombie_gets_hit.wav").playNormal();
             return true;
         }
         return false;
