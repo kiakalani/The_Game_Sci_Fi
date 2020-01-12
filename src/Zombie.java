@@ -1,3 +1,5 @@
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -41,20 +43,22 @@ public class Zombie extends ImageView {
     }
 
     private void updatePosition(){
-        this.setTranslateX((Math.cos(Math.toRadians(angle)))*Run.relativeX(0.5)+this.getTranslateX());
-        this.setTranslateY(this.getTranslateY()+Math.sin(Math.toRadians(angle))*Run.relativeY(0.5));
+        this.setTranslateX((Math.cos(Math.toRadians(angle)))*Run.relativeX(0.1)+this.getTranslateX());
+        this.setTranslateY(this.getTranslateY()+Math.sin(Math.toRadians(angle))*Run.relativeY(0.1));
     }
 
     public void hit(Player player){
         player.setCurrentHP(player.getCurrentHP() - 20);
     }
 
-    public void loseLife(Bullet bullet) {
+    public boolean loseLife(Bullet bullet) {
         if (bullet.getBoundsInParent().intersects(this.getBoundsInParent())) {
             currentHP-=40;
             System.out.println(currentHP);
-            bullet = null;
+            new Audio("C:\\Users\\Kia\\IdeaProjects\\TombOfOsiris\\Audio\\death.wav").playNormal();
+            return true;
         }
+        return false;
     }
 
     public double getCurrentHP() {
