@@ -35,7 +35,7 @@ public class MainMenu extends DefaultScreen {
                         }
                         if (index == 1) {
                             // Run the credits
-                            System.out.println("Credits");
+                            Run.changeScene(new Credits().getScene());
                         }
                     }
                 }
