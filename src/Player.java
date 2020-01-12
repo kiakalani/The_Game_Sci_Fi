@@ -30,6 +30,7 @@ public class Player extends ImageView {
     private double currentHP;
     private double currentMagazineAmmo;
     private double totalAmmo;
+    private AnimationTimer a;
 
     private void checkBoundaries() {
         if (getTranslateX()<0) {
@@ -64,7 +65,7 @@ public class Player extends ImageView {
      * Constantly updating the position of the player
      */
     private void update(LinkedList<Zombie> zombies, Player player) {
-        AnimationTimer a = new AnimationTimer() {
+         a = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 setTranslateX(getTranslateX() + horizontalSpeed);
@@ -88,6 +89,10 @@ public class Player extends ImageView {
                         }
                     }
 
+                }
+                if (MainMenu.audio.isOver()) {
+                    MainMenu.audio = new Audio("Audio/SG222.wav");
+                    MainMenu.audio.play();
                 }
             }
         };
@@ -225,5 +230,8 @@ public class Player extends ImageView {
 
     public double getCurrentHP() {
         return currentHP;
+    }
+    public void stopUpdating() {
+        a.stop();
     }
 }

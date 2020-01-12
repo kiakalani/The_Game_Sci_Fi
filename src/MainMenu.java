@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class MainMenu extends DefaultScreen {
     private LinkedList<ImageView> buttons = new LinkedList<>();
-
+    public static Audio audio = new Audio("Audio/SMM.wav");
     private void setButtons() {
         for (int i=1;i<4;i++) {
             buttons.add(new ImageView(new Image("img/buttons/"+i+".png")));
@@ -31,6 +31,7 @@ public class MainMenu extends DefaultScreen {
                         System.exit(0);
                     } else{
                         if (index == 0) {
+                            audio.stop();
                             Run.changeScene(new GamePage().getScene());
                         }
                         if (index == 1) {
@@ -54,6 +55,9 @@ public class MainMenu extends DefaultScreen {
         buttons.get(2).setFitWidth(Run.relativeX(38));
     }
     public MainMenu() {
+        audio.stop();
+        audio = new Audio("Audio/SMM.wav");
+        audio.play();
         setBackground();
         setButtons();
     }

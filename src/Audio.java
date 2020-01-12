@@ -24,4 +24,7 @@ public class Audio {
     public void stop() {
         clip.stop();
     }
+    public boolean isOver() {
+        return !clip.isActive();
+    }
 }

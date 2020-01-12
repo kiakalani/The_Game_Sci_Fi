@@ -12,6 +12,8 @@ public class GamePage extends DefaultScreen {
     private final Player player=new Player(getChildren(),vanyas);
 
     public GamePage() {
+        MainMenu.audio = new Audio("Audio/SG111.wav");
+        MainMenu.audio.playNormal();
         setBackground();
         this.getChildren().add(player);
         this.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -19,6 +21,7 @@ public class GamePage extends DefaultScreen {
             public void handle(KeyEvent event) {
                 player.setOnPressed(event);
                 if (event.getCode()== KeyCode.ESCAPE) {
+                    player.stopUpdating();
                     Run.changeScene(new MainMenu().getScene());
                 }
             }
