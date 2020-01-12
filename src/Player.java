@@ -1,6 +1,5 @@
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.Transform;
 
 import java.util.LinkedList;
 
@@ -36,24 +34,9 @@ public class Player extends ImageView {
                 setRotate(angle);
                 updateBullets();
                 deleteBullets();
-                checkBoundaries();
             }
         };
         a.start();
-    }
-    private void checkBoundaries() {
-        if (getTranslateX()<0) {
-            setTranslateX(0);
-        }
-        if (getTranslateX()+getFitWidth()>Run.relativeX(100)) {
-            setTranslateX(Run.relativeX(99.9)-getFitWidth());
-        }
-        if (getTranslateY()<0) {
-            setTranslateY(0);
-        }
-        if (getTranslateY()+getFitHeight()>Run.relativeY(100)) {
-            setTranslateY(Run.relativeY(99.9)-getFitHeight());
-        }
     }
 
     public Player(ObservableList<Node> group) {
@@ -104,10 +87,10 @@ public class Player extends ImageView {
     }
 
     public void setOnMoved(MouseEvent event) {
-        angle = Math.toDegrees(Math.atan((event.getY() - getTranslateY()) / (event.getX() - getTranslateX())));
-        if (getTranslateX() > event.getX()) {
-            angle += 180;
-        }
+        angle = Math.toDegrees(Math.atan2(getTranslateY() - event.getY() , getTranslateX() - event.getX())) + 180;
+//        if (getTranslateX() > event.getX()) {
+//            angle += 180;
+//        }
     }
     public void shoot(MouseEvent event, ObservableList<Node> parent) {
         if (event.getButton() == MouseButton.PRIMARY) {
@@ -134,6 +117,10 @@ public class Player extends ImageView {
             }
         }
     }
+
+
+
+
     private void deleteBullets() {
         for (Bullet bullet:bullets) {
             if (bullet.getTranslateX()>Run.relativeX(100)) {
