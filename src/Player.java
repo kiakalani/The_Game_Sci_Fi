@@ -111,6 +111,7 @@ public class Player extends ImageView {
     }
     public void shoot(MouseEvent event, ObservableList<Node> parent) {
         if (event.getButton() == MouseButton.PRIMARY) {
+            new Audio("Audio/bullet.wav").playNormal();
             double initialx = getTranslateX() + (getFitWidth() / 2);
             double initialy = getTranslateY() + (getFitHeight() / 2);
             //Sin is for y
@@ -129,7 +130,7 @@ public class Player extends ImageView {
         if (bullets.size()!=0) {
             for (Bullet bullet:bullets) {
                 bullet.setTranslateX(Math.cos(Math.toRadians(bullet.getAngle()))*Run.relativeX(5)+bullet.getTranslateX());
-                bullet.setTranslateY(Math.sin(Math.toRadians(bullet.getAngle()))*Run.relativeY(5)+bullet.getTranslateY());
+                bullet.setTranslateY(Math.sin(Math.toRadians(bullet.getAngle()))*Run.relativeX(5)+bullet.getTranslateY());
             }
         }
     }
