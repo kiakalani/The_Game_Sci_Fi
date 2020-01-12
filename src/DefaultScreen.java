@@ -13,6 +13,6 @@ public abstract class DefaultScreen extends Group {
         return Run.relativeY(y);
     }
     public DefaultScreen() {
-        getScene().setCursor(new ImageCursor(new Image("img/buttons/1.png")));
+        getScene().setCursor(new ImageCursor(new Image("img/Crosshair.png")));
     }
 }

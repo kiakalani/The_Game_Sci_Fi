@@ -79,6 +79,7 @@ public class Player extends ImageView {
                 for (Bullet bullet:bullets) {
                     for (Zombie zombie:zombies) {
                         if (zombie.loseLife(bullet)){
+                            bullet.setImage(null);
                             bullets.remove(bullet);
                         }
                         if (zombie.getCurrentHP()<0) {
