@@ -20,6 +20,8 @@ public class Zombie extends ImageView {
 
     public Zombie(ObservableList<Node> children) {
 
+        maxHP = 100;
+        currentHP = maxHP;
         //generates a random position for zombie when it spawns
         double randPosX = (double)(rand.nextInt(99)+1);
         double randPosY = (double)(rand.nextInt(99)+1);
